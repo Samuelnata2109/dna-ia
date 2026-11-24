@@ -1,0 +1,52 @@
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Button } from "../ui/Button";
+
+const query = "(prefers-reduced-motion: reduce)";
+function subscribe(onChange: () => void) {
+  const media = window.matchMedia(query);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+function getReducedMotion() {
+  return window.matchMedia(query).matches;
+}
+
+export function ResultReveal({ children }: { children: React.ReactNode }) {
+  const reduced = useSyncExternalStore(subscribe, getReducedMotion);
+  const [step, setStep] = useState(0);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const revealed = reduced || step >= 3;
+  useEffect(() => {
+    if (revealed) return;
+    const timer = window.setTimeout(() => setStep((value) => value + 1), 750);
+    return () => window.clearTimeout(timer);
+  }, [step, revealed]);
+  useEffect(() => {
+    if (!revealed) heading.current?.focus();
+  }, [revealed]);
+  if (revealed) return children;
+  return (
+    <section className="result-scan" aria-labelledby="result-scan-title">
+      <div className="result-scan__core" aria-hidden="true">
+        <span>◇</span>
+        <i />
+        <i />
+        <i />
+      </div>
+      <p className="result-kicker">15 respostas registradas!</p>
+      <h1 ref={heading} tabIndex={-1} id="result-scan-title">
+        Sua identidade está chegando.
+      </h1>
+      <p className="result-scan__status" role="status">
+        {
+          [
+            "ANALISANDO ESCOLHAS...",
+            "PROCESSANDO PERFIL...",
+            "IDENTIDADE DESBLOQUEADA.",
+          ][step]
+        }
+      </p>
+      <Button onClick={() => setStep(3)}>Pular animação</Button>
+    </section>
+  );
+}

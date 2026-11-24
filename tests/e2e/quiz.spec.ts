@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("joga as 15 perguntas com imagens, XP, fases e conclusão sem perfil", async ({
+test("joga as 15 perguntas com imagens e revela perfil somente após concluir", async ({
   page,
   isMobile,
 }) => {
@@ -51,13 +51,9 @@ test("joga as 15 perguntas com imagens, XP, fases e conclusão sem perfil", asyn
       await page.getByRole("button", { name: /Continuar/ }).click();
     }
   }
-  await expect(
-    page.getByRole("heading", { name: "15 respostas registradas!" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: /THE / })).toBeVisible();
   await expect(page.getByRole("progressbar")).toHaveAttribute("value", "100");
-  await expect(page.getByText(/THE BUILDER|THE BRAIN|THE CREATOR/)).toHaveCount(
-    0,
-  );
+  await expect(page.locator(".result-portrait img")).toBeVisible();
   expect(errors).toEqual([]);
 });
 
