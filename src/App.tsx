@@ -47,7 +47,6 @@ export function App() {
               journey.liveNotice ? "session-notice" : "session-announcement"
             }
             aria-label="Estado da jornada"
-            aria-label="Estado da jornada"
             role="status"
             aria-atomic="true"
           >
