@@ -24,7 +24,7 @@ Na publicação da Etapa 07, o axe-core identificou contraste de 4,24:1 nos índ
 ## Build, caminhos e recursos
 
 - O Vite 8.3.8 gerou `dist/` com base `/dna-ia/`. A prévia verificou o caminho, a recarga em `#design-system`, os recursos locais e a renderização das perguntas e dos resultados. A varredura registrou zero erros de console e zero falhas de rede.
-- JavaScript inicial de 254,59 kB (80,64 kB gzip), CSS inicial de 15,80 kB (3,89 kB gzip) e JavaScript total de aproximadamente 271,29 kB, conforme a saída do build. Quiz, Design System e resultado têm chunks próprios. O carregamento inicial conserva fontes locais e a ilustração vencedora é resolvida a partir do resultado oficial.
+- JavaScript inicial de 254,73 kB (80,66 kB gzip), CSS inicial de 15,81 kB (3,89 kB gzip) e JavaScript total de aproximadamente 271,47 kB, conforme a saída do build validado no PR. Quiz, Design System e resultado têm chunks próprios. O carregamento inicial conserva fontes locais e a ilustração vencedora é resolvida a partir do resultado oficial.
 - Os SHA-256 dos 21 WebP coincidem com [o manifesto dos assets aprovados](../tests/fixtures/approved-assets.json). A revisão de diff confirma que o motor, o banco de perguntas, os perfis, os textos complementares, o PDF e o Prompt Mestre foram preservados.
 
 ## Desempenho de laboratório
@@ -38,6 +38,15 @@ Medição da entrada servida pelo Vite Preview no Windows, com Chromium 159, cac
 
 A entrada requisitou JS, CSS e quatro WOFF2 para as três famílias oficiais. As imagens das perguntas e dos perfis são solicitadas durante a jornada. Os valores representam amostras locais, sujeitas à carga do Windows, e não medem INP ou desempenho de campo. Os WebP aprovados foram preservados byte a byte.
 
+O Lighthouse 13.6 também mediu a entrada do build final em Chromium 159 no Windows. O perfil móvel simulado usou viewport de 412 × 823 px, latência de 150 ms, rede de 1.638,4 kbps e CPU limitada em 4×.
+
+| Medição Lighthouse                  | Desempenho | Acessibilidade |    LCP |    CLS | Tempo total de bloqueio |
+| ----------------------------------- | ---------: | -------------: | -----: | -----: | ----------------------: |
+| Durante restauração de dependências |     64/100 |        100/100 | 854 ms | 0,0240 |                3.999 ms |
+| Após a restauração                  |     68/100 |        100/100 | 880 ms | 0,0240 |                2.846 ms |
+
+O tempo de bloqueio elevado permaneceu na repetição. Na primeira medição, as duas tarefas mais longas ficaram sem atribuição a um recurso específico na captura. A medição não isola a origem do bloqueio nem representa o desempenho de campo. É uma pendência de investigação em dispositivo móvel físico. A nota de acessibilidade cobre as verificações automáticas da tela inicial.
+
 Os testes locais identificaram um atraso na revelação com o Windows sob carga. Agora os três estágios são agendados no início da sequência, em 750, 1.500 e 2.250 ms, com cancelamento ao pular ou desmontar. Há uma regressão com relógio simulado que avança diretamente até a revelação e verifica o foco final.
 
 ## Instalação e execução dos testes
@@ -45,3 +54,5 @@ Os testes locais identificaram um atraso na revelação com o Windows sob carga.
 O Windows bloqueou a remoção do binário do Rolldown em uso pelo Vite na pasta de trabalho. Em uma cópia limpa, `npm ci` instalou 230 pacotes com Node 26.13.1. `npm audit --audit-level=low` retornou zero vulnerabilidades conhecidas. Nenhuma dependência foi acrescentada ao projeto.
 
 As primeiras execuções locais registraram limites de tempo na inicialização de workers do Vitest e durante jornadas no Playwright sob carga. A entrada nos testes de integração do quiz passou a aguardar a importação assíncrona dentro do `act` do React. Os testes mantêm as asserções de primeira pergunta, foco, respostas e progresso. O workflow do PR executa as suítes completas em Linux.
+
+Na primeira execução de Playwright em Windows, 28 de 38 casos passaram. As falhas incluíram tempos limite e a colisão de regiões de status na demonstração. A região de sessão agora pertence à jornada. A validação completa do código no [CI do PR #8](https://github.com/Samuelnata2109/dna-ia/actions/runs/45512292757), no commit `d4ab268`, aprovou 64 testes de Vitest em 14 arquivos e 38 de Playwright em Chromium desktop e Pixel 7 emulado. Também passaram `npm ci`, lint, Prettier, typecheck e build.
