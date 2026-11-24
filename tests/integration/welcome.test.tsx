@@ -23,7 +23,7 @@ it("apresenta a experiência e inicia com START desabilitado", () => {
   expect(screen.getByRole("button", { name: "START" })).toBeDisabled();
 });
 
-it("anuncia espaços e excesso de caracteres e habilita START com nickname válido", () => {
+it("anuncia espaços e excesso de caracteres e habilita START com nickname válido", async () => {
   render(<App />);
   const field = screen.getByRole("textbox", { name: "Seu nickname" });
   const start = screen.getByRole("button", { name: "START" });
@@ -41,7 +41,11 @@ it("anuncia espaços e excesso de caracteres e habilita START com nickname váli
   expect(field).not.toBeInvalid();
   expect(start).toBeEnabled();
   fireEvent.click(start);
-  const question = screen.getByRole("heading", { level: 1 });
+  const question = await screen.findByText(
+    /Se você pudesse/,
+    {},
+    { timeout: 5000 },
+  );
   expect(question).toHaveFocus();
   expect(screen.getByText("Lú 🧩")).toBeVisible();
   expect(screen.getAllByRole("radio")).toHaveLength(6);

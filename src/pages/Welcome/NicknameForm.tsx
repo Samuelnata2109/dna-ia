@@ -7,17 +7,23 @@ import { nicknameLimit, validateNickname } from "../../utils/nickname";
 type NicknameFormProps = {
   initialNickname: string;
   onStart: (nickname: string) => void;
+  focusOnMount?: boolean;
 };
 
-export function NicknameForm({ initialNickname, onStart }: NicknameFormProps) {
+export function NicknameForm({
+  initialNickname,
+  onStart,
+  focusOnMount = false,
+}: NicknameFormProps) {
   const [input, setInput] = useState(initialNickname);
   const [touched, setTouched] = useState(false);
   const started = useRef(false);
   const fieldRef = useCallback(
     (field: HTMLInputElement | null) => {
-      if (initialNickname) field?.focus({ preventScroll: true });
+      if (initialNickname || focusOnMount)
+        field?.focus({ preventScroll: true });
     },
-    [initialNickname],
+    [initialNickname, focusOnMount],
   );
   const { nickname, length, error } = validateNickname(input);
   const visibleError = touched || length > nicknameLimit ? error : undefined;

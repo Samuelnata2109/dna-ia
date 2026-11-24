@@ -33,7 +33,7 @@ afterEach(() => {
 for (const profile of profiles) {
   it(`revela ${profile.codename} pelo motor e preserva todos os textos oficiais`, () => {
     const session = completed(profile.id);
-    render(<ResultPage session={session} />);
+    render(<ResultPage onRestart={() => {}} session={session} />);
     expect(screen.queryByText(profile.codename)).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Pular animação" }));
     expect(getFinalResult(session).id).toBe(profile.id);
@@ -59,13 +59,21 @@ for (const profile of profiles) {
   });
 }
 it("rejeita sessões incompletas e corrompidas antes de revelar", () => {
-  expect(() => render(<ResultPage session={createSession("Lú")} />)).toThrow();
   expect(() =>
-    render(<ResultPage session={{ ...completed("builder"), nickname: " " }} />),
+    render(<ResultPage onRestart={() => {}} session={createSession("Lú")} />),
   ).toThrow();
   expect(() =>
     render(
       <ResultPage
+        onRestart={() => {}}
+        session={{ ...completed("builder"), nickname: " " }}
+      />,
+    ),
+  ).toThrow();
+  expect(() =>
+    render(
+      <ResultPage
+        onRestart={() => {}}
         session={{ ...completed("builder"), answers: { q01: "inexistente" } }}
       />,
     ),
@@ -73,7 +81,9 @@ it("rejeita sessões incompletas e corrompidas antes de revelar", () => {
 });
 it("conclui a sequência curta e remove os timers ao desmontar", () => {
   vi.useFakeTimers();
-  const view = render(<ResultPage session={completed("maker")} />);
+  const view = render(
+    <ResultPage onRestart={() => {}} session={completed("maker")} />,
+  );
   act(() => {
     vi.advanceTimersByTime(750);
   });
@@ -91,7 +101,9 @@ it("conclui a sequência curta e remove os timers ao desmontar", () => {
   view.unmount();
   const schedule = vi.spyOn(window, "setTimeout");
   const cancel = vi.spyOn(window, "clearTimeout");
-  const pending = render(<ResultPage session={completed("maker")} />);
+  const pending = render(
+    <ResultPage onRestart={() => {}} session={completed("maker")} />,
+  );
   const timerIndex = schedule.mock.calls.findIndex((call) => call[1] === 750);
   expect(timerIndex).toBeGreaterThanOrEqual(0);
   const timer = schedule.mock.results[timerIndex].value;
@@ -104,7 +116,7 @@ it("revela diretamente quando movimento reduzido está ativo", () => {
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
   } as unknown as MediaQueryList);
-  render(<ResultPage session={completed("guardian")} />);
+  render(<ResultPage onRestart={() => {}} session={completed("guardian")} />);
   expect(screen.getByRole("heading", { name: "THE GUARDIAN" })).toBeVisible();
   expect(
     screen.queryByRole("button", { name: "Pular animação" }),

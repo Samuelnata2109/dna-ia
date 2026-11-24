@@ -6,14 +6,17 @@ import { ResultReveal } from "../../components/animations/ResultReveal";
 import { ProfileDetails } from "../../components/result/ProfileDetails";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { Container } from "../../components/layout/Layout";
+import { ResultActions } from "../../components/result/ResultActions";
 import "./result.css";
 
 function ProfileResult({
   profile,
   nickname,
+  onRestart,
 }: {
   profile: Profile;
   nickname: string;
+  onRestart: () => void;
 }) {
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -48,13 +51,7 @@ function ProfileResult({
         </div>
       </div>
       <ProfileDetails profile={profile} />
-      <aside className="result-actions" aria-label="Próximas possibilidades">
-        <h2>Sua descoberta continua</h2>
-        <p>
-          Compartilhamento e reinício estarão disponíveis em uma próxima
-          atualização.
-        </p>
-      </aside>
+      <ResultActions profile={profile} onRestart={onRestart} />
       <p className="result-disclaimer">
         Este resultado é uma descoberta recreativa baseada nos seus interesses e
         escolhas.
@@ -63,7 +60,15 @@ function ProfileResult({
   );
 }
 
-export function ResultPage({ session }: { session: QuizSession }) {
+export function ResultPage({
+  session,
+  onRestart,
+  skipReveal = false,
+}: {
+  session: QuizSession;
+  onRestart: () => void;
+  skipReveal?: boolean;
+}) {
   // getFinalResult performs full validation before any result UI is rendered.
   const profile = getFinalResult(session);
   return (
@@ -78,8 +83,12 @@ export function ResultPage({ session }: { session: QuizSession }) {
           value={100}
           phase={3}
         />
-        <ResultReveal>
-          <ProfileResult profile={profile} nickname={session.nickname} />
+        <ResultReveal skip={skipReveal}>
+          <ProfileResult
+            profile={profile}
+            nickname={session.nickname}
+            onRestart={onRestart}
+          />
         </ResultReveal>
       </Container>
     </main>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { Container } from "../../components/layout/Layout";
 import { Button } from "../../components/ui/Button";
 import { ProgressBar } from "../../components/ui/ProgressBar";
@@ -11,24 +11,33 @@ import {
   recordAnswer,
 } from "../../engine/session";
 import { validateSession } from "../../engine/validateSession";
-import type { QuizSession } from "../../types/quiz";
+import type {
+  StoredJourney,
+  QuizNavigation,
+} from "../../storage/sessionStorage";
 import { QuestionCard } from "../../components/quiz/QuestionCard";
 import "./quiz.css";
-import { ResultPage } from "../Result/ResultPage";
-
-type View =
-  | { kind: "question"; index: number }
-  | { kind: "level"; completed: number; nextIndex: number }
-  | { kind: "complete" };
+const ResultPage = lazy(() =>
+  import("../Result/ResultPage").then((module) => ({
+    default: module.ResultPage,
+  })),
+);
 
 export function QuizPage({
-  session,
-  onSessionChange,
+  journey,
+  onChange,
+  onRestart,
+  skipReveal,
 }: {
-  session: QuizSession;
-  onSessionChange: (session: QuizSession) => void;
+  journey: StoredJourney;
+  onChange: (journey: StoredJourney) => void;
+  onRestart: () => void;
+  skipReveal: boolean;
 }) {
-  const [view, setView] = useState<View>({ kind: "question", index: 0 });
+  const { session, navigation: view, passedMilestones } = journey;
+  function setView(navigation: QuizNavigation, passed = passedMilestones) {
+    onChange({ ...journey, navigation, passedMilestones: passed });
+  }
   const headingRef = useRef<HTMLHeadingElement>(null);
   const progress = calculateProgress(session);
   const question = view.kind === "question" ? questions[view.index] : null;
@@ -49,7 +58,10 @@ export function QuizPage({
     if (view.index === questions.length - 1) {
       validateSession(session, true);
       setView({ kind: "complete" });
-    } else if (question.number === 5 || question.number === 10) {
+    } else if (
+      (question.number === 5 || question.number === 10) &&
+      passedMilestones < phase
+    ) {
       setView({
         kind: "level",
         completed: phase - 1,
@@ -60,7 +72,22 @@ export function QuizPage({
     }
   }
 
-  if (view.kind === "complete") return <ResultPage session={session} />;
+  if (view.kind === "complete")
+    return (
+      <Suspense
+        fallback={
+          <main className="session-screen">
+            <p role="status">Carregando seu resultado…</p>
+          </main>
+        }
+      >
+        <ResultPage
+          session={session}
+          onRestart={onRestart}
+          skipReveal={skipReveal}
+        />
+      </Suspense>
+    );
 
   return (
     <main className="quiz" data-phase={phase}>
@@ -102,7 +129,10 @@ export function QuizPage({
               options={getOptionsInSessionOrder(session, question.id)}
               selectedId={getAnswer(session, question.id)}
               onSelect={(optionId) =>
-                onSessionChange(recordAnswer(session, question.id, optionId))
+                onChange({
+                  ...journey,
+                  session: recordAnswer(session, question.id, optionId),
+                })
               }
             />
             <nav
@@ -157,7 +187,10 @@ export function QuizPage({
               </Button>
               <Button
                 onClick={() =>
-                  setView({ kind: "question", index: view.nextIndex })
+                  setView(
+                    { kind: "question", index: view.nextIndex },
+                    (view.completed + 1) as 1 | 2,
+                  )
                 }
               >
                 Continuar →

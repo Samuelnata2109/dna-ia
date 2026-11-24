@@ -6,16 +6,17 @@ import { questions } from "../../src/data/questions";
 
 afterEach(cleanup);
 
-function start() {
+async function start() {
   render(<App />);
   fireEvent.change(screen.getByRole("textbox", { name: "Seu nickname" }), {
     target: { value: "Fênix" },
   });
   fireEvent.click(screen.getByRole("button", { name: "START" }));
+  await screen.findByRole("heading", { name: questions[0].prompt });
 }
 
-it("inicia na pergunta oficial, bloqueia avanço e preserva resposta e ordem ao voltar", () => {
-  start();
+it("inicia na pergunta oficial, bloqueia avanço e preserva resposta e ordem ao voltar", async () => {
+  await start();
   expect(
     screen.getByRole("heading", { name: questions[0].prompt }),
   ).toHaveFocus();
@@ -47,8 +48,8 @@ it("inicia na pergunta oficial, bloqueia avanço e preserva resposta e ordem ao 
   ).not.toBeInTheDocument();
 });
 
-it("percorre as três fases e inicia a revelação somente após concluir", () => {
-  start();
+it("percorre as três fases e inicia a revelação somente após concluir", async () => {
+  await start();
   for (let index = 0; index < questions.length; index++) {
     expect(
       screen.getByRole("heading", { name: questions[index].prompt }),
@@ -71,7 +72,9 @@ it("percorre as três fases e inicia a revelação somente após concluir", () =
     }
   }
   expect(
-    screen.getByRole("heading", { name: "Sua identidade está chegando." }),
+    await screen.findByRole("heading", {
+      name: "Sua identidade está chegando.",
+    }),
   ).toHaveFocus();
   expect(screen.getByRole("progressbar")).toHaveAttribute("value", "100");
   expect(

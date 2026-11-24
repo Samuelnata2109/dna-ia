@@ -6,7 +6,7 @@
 
 `ProfileResult` apresenta a ilustração, codinome, profissão, mensagem com nickname tratado como texto, descrição oficial e conquista. `ProfileDetails` apresenta características e projetos oficiais e os [complementos editoriais aprovados](PROFILE_EDITORIAL.md). O título recebe foco ao abrir o resultado; durante a sequência, as mensagens usam `role="status"`. As seis imagens compartilham o mesmo formato, proporção e tratamento visual. Somente a imagem do perfil vencedor é requisitada, com dimensões explícitas e prioridade de carregamento.
 
-A tela usa os tokens oficiais e CSS/SVG, sem novas dependências. Não há coleta, persistência, compartilhamento ou reinício funcional nesta etapa. O espaço para essas ações informa sua disponibilidade futura; não há botões sem função. A sessão permanece em memória no `App`. A integração futura dessas ações pode ser adicionada como callbacks de `ResultPage`, sem alterar o motor.
+A tela usa os tokens oficiais e CSS/SVG, sem novas dependências. A Etapa 07 acrescenta `ResultActions` com **COMPARTILHAR RESULTADO** e **REFAZER QUIZ**. O compartilhamento usa Web Share ou fallback de cópia, sem nickname ou respostas. O reinício chama o controlador da sessão e exige confirmação de exclusão. Ao continuar um resultado salvo, `skipReveal` apresenta o perfil diretamente. A sessão é persistida localmente pelo hook, sem modificar o motor. Veja [Persistência e compartilhamento](SESSION_AND_SHARING.md).
 
 As seis ilustrações e os complementos editoriais foram aprovados pelo responsável, sem substituição ou reescrita, em 24/11/2026. O aviso recreativo obrigatório acompanha o resultado. Os nomes profissionais são áreas de afinidade, não certificações concedidas pelo quiz.
 

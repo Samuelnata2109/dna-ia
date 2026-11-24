@@ -1,0 +1,83 @@
+.session-notice {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: var(--ia-navy-800);
+  color: var(--ia-blue-200);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.session-screen {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: var(--ia-navy-900);
+  color: var(--ia-white);
+  padding: 2rem 1rem;
+}
+.session-panel {
+  width: min(100%, 680px);
+  border: 1px solid var(--ia-violet-400);
+  background: var(--ia-navy-800);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  box-shadow: 5px 5px 0 var(--ia-blue-900);
+}
+.session-panel h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.15;
+}
+.session-panel h1:focus {
+  outline: none;
+}
+.session-panel p {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.session-panel .ds-progress__number {
+  color: var(--ia-blue-200);
+}
+.session-kicker {
+  color: var(--ia-cyan-200);
+  font: 0.7rem var(--ia-font-mono);
+}
+.session-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-block: 1.5rem 0.5rem;
+}
+.session-buttons .ds-button {
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.session-dialog {
+  background: var(--ia-navy-800);
+  color: var(--ia-white);
+  border: 2px solid var(--ia-violet-400);
+  padding: 1.5rem;
+  width: min(600px, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  box-shadow: 5px 5px 0 var(--ia-blue-900);
+}
+.session-dialog::backdrop {
+  background: color-mix(in srgb, var(--ia-navy-900) 90%, transparent);
+}
+.session-dialog p {
+  line-height: 1.6;
+}
+.share-manual {
+  display: grid;
+  gap: 0.5rem;
+}
+.share-manual textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--ia-navy-900);
+  color: var(--ia-white);
+  border: 1px solid var(--ia-blue-200);
+  font: 1rem/1.5 var(--ia-font-body);
+  resize: vertical;
+}
