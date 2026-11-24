@@ -14,4 +14,13 @@
 - Pull Request [#1](https://github.com/Samuelnata2109/dna-ia/pull/1) mesclado em 24/11/2026 às 02h05 (Fortaleza), com o [CI do PR](https://github.com/Samuelnata2109/dna-ia/pull/1/checks) aprovado. O commit inicial da etapa é `447dcee`.
 - [Workflow de publicação](https://github.com/Samuelnata2109/dna-ia/actions/runs/45330849082) aprovado no commit integrado. Validação, upload e publicação concluídos com sucesso. O ambiente `github-pages` registrou o deployment `8019188569` como bem-sucedido às 02h06 (Fortaleza).
 - [Site publicado](https://samuelnata2109.github.io/dna-ia/) validado com Playwright e Chromium 159.0.8154.6 em desktop (1280 × 720) e emulação de Pixel 7 (412 × 839). O HTML e `/dna-ia/assets/index-9muay2r3.js` responderam HTTP 200 na abertura e na recarga em ambos os perfis. O título e a identificação do curso ficaram visíveis, sem erros de carregamento ou execução e sem rolagem horizontal.
-- **Antes da Etapa 02:** validar visualmente as duas páginas do PDF oficial e obter autorização para iniciar o Design System.
+
+## Etapa 02 — Design System
+
+- Branch: `feature/02-design-system`, criada a partir da `main` em `56a565a`. O registro local da primeira publicação foi preservado no commit `f08a354`.
+- As duas páginas do PDF oficial foram renderizadas e revisadas visualmente. A comparação automática confirmou os 27 tokens oficiais descritos no Prompt Mestre. Os arquivos oficiais mantiveram os hashes anteriores.
+- Implementação: tokens, fontes locais, Button, Input, Card, Badge, ProgressBar e componentes de layout. A raiz exibe uma demonstração dos componentes em vez de iniciar uma sessão de quiz. Veja [Design System](DESIGN_SYSTEM.md).
+- Validação: `npm ci`, lint, Prettier, TypeScript e build passaram. O Vitest aprovou seis testes. O Playwright aprovou seis verificações em desktop e mobile, incluindo foco, alvos de toque, contraste, fontes locais, movimento reduzido e recarga sob `/dna-ia/`. A auditoria npm retornou zero vulnerabilidades conhecidas.
+- Revisão visual em Chromium nas larguras de 1440, 412 e 320 px. Fontes, cartões, hierarquia, foco e barras de progresso foram conferidos sem rolagem horizontal.
+- Pull Request: aguardando abertura para revisão. O deploy da etapa depende do merge aprovado em `main`.
+- **Próxima etapa:** tela inicial, após revisão do Design System e autorização explícita.

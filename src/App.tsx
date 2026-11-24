@@ -1,11 +1,5 @@
-import { project } from "./project";
+import { DesignSystem } from "./pages/DesignSystem";
 
 export function App() {
-  return (
-    <main>
-      <h1>{project.name}</h1>
-      <p>{project.course}</p>
-      <p>{project.slogan}</p>
-    </main>
-  );
+  return <DesignSystem />;
 }

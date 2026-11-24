@@ -1,0 +1,87 @@
+.showcase__masthead {
+  background: var(--ia-navy-900);
+  color: var(--ia-white);
+  border-block-end: 6px solid var(--ia-violet-600);
+}
+.showcase__banner {
+  position: relative;
+  display: grid;
+  gap: var(--ds-space-6);
+  align-items: center;
+  padding-block: clamp(var(--ds-space-6), 7vw, 5rem);
+}
+.showcase__banner h1 {
+  margin-block-start: var(--ds-space-3);
+  font-size: clamp(3rem, 12vw, 7.5rem);
+  letter-spacing: -0.09em;
+  line-height: 1;
+}
+.showcase__banner p {
+  margin-block-start: var(--ds-space-3);
+  color: var(--ia-blue-200);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+.showcase__signal {
+  display: none;
+  min-block-size: 7.5rem;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  gap: var(--ds-space-3);
+  border: 1px solid var(--ia-blue-600);
+  background-image:
+    linear-gradient(var(--ia-blue-900) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ia-blue-900) 1px, transparent 1px);
+  background-size: 1.25rem 1.25rem;
+  box-shadow: 6px 6px 0 var(--ia-violet-600);
+}
+.showcase__signal span {
+  display: block;
+  inline-size: clamp(1rem, 4vw, 2.5rem);
+  block-size: 2rem;
+  border: 2px solid var(--ia-cyan-400);
+  background: var(--ia-navy-900);
+}
+.showcase__signal span:nth-child(2) {
+  block-size: 3.5rem;
+}
+.showcase__signal span:nth-child(3) {
+  block-size: 5rem;
+}
+
+.showcase__content {
+  display: grid;
+  gap: var(--ds-space-7);
+  padding-block: var(--ds-space-6) var(--ds-space-7);
+}
+.showcase__content h2 {
+  color: var(--ia-blue-900);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+.showcase__content h3 {
+  font-size: 1.25rem;
+}
+.showcase__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-space-3);
+}
+.showcase__caption {
+  font-size: 0.875rem;
+  color: var(--ia-text-2);
+}
+.showcase__progress-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+@media (min-width: 48rem) {
+  .showcase__banner {
+    grid-template-columns: 1fr minmax(12rem, 32%);
+  }
+  .showcase__signal {
+    display: flex;
+  }
+  .showcase__content {
+    padding-block-start: var(--ds-space-7);
+  }
+}
