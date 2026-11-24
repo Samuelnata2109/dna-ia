@@ -1,0 +1,56 @@
+:root {
+  /* Base */
+  --ia-navy-900: #0b1033;
+  --ia-navy-800: #0f1538;
+  --ia-blue-900: #1e2a6e;
+  --ia-text-2: #3d4766;
+  --ia-bg: #f7f8ff;
+  --ia-line: #ccd3f0;
+  --ia-white: #ffffff;
+
+  /* Azul */
+  --ia-blue-600: #3b5bdb;
+  --ia-blue-400: #5c7cfa;
+  --ia-blue-200: #a5b4fc;
+  --ia-link-hover: #1e3a8a;
+
+  /* Violeta */
+  --ia-violet-700: #6d28d9;
+  --ia-violet-600: #7c3aed;
+  --ia-violet-500: #8b5cf6;
+  --ia-violet-400: #9775fa;
+  --ia-violet-200: #c4b5fd;
+
+  /* Ciano */
+  --ia-cyan-400: #22d3ee;
+  --ia-cyan-200: #67e8f9;
+
+  /* Verde */
+  --ia-green-700: #047857;
+  --ia-green-800: #15803d;
+  --ia-green-600: #16a34a;
+  --ia-green-500: #22c55e;
+  --ia-green-200: #6ee7b7;
+
+  /* Tipografia */
+  --ia-font-pixel: "Press Start 2P", monospace;
+  --ia-font-body: "Space Grotesk", sans-serif;
+  --ia-font-mono: "JetBrains Mono", monospace;
+
+  /* Sombra */
+  --ia-shadow: 4px 4px 0 var(--ia-violet-200);
+
+  /* Escala de layout */
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-5: 1.5rem;
+  --ds-space-6: 2rem;
+  --ds-space-7: 3rem;
+  --ds-control-sm: 2.75rem;
+  --ds-control-md: 3rem;
+  --ds-control-lg: 3.5rem;
+  --ds-radius: 0.25rem;
+  --ds-duration: 140ms;
+}

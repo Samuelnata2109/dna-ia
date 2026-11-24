@@ -1,0 +1,47 @@
+@import "./tokens.css";
+@import "./components.css";
+
+:root {
+  color-scheme: light;
+  background: var(--ia-bg);
+  color: var(--ia-navy-800);
+  font-family: var(--ia-font-body);
+  font-size: 100%;
+  line-height: 1.55;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-inline-size: 0;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+  font-weight: 700;
+  text-wrap: balance;
+}
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ds-focus-color, var(--ia-violet-700));
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ds-duration: 0ms;
+  }
+}
