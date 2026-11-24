@@ -1,0 +1,402 @@
+.welcome {
+  min-block-size: 100svh;
+  background: var(--ia-navy-900);
+  color: var(--ia-white);
+  color-scheme: dark;
+  --ds-focus-color: var(--ia-cyan-200);
+}
+
+.welcome-header {
+  border-block-end: 1px solid var(--ia-blue-900);
+}
+.welcome-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  min-block-size: 4rem;
+  padding-block: var(--ds-space-2);
+}
+.welcome-brand svg {
+  flex: none;
+  color: var(--ia-cyan-200);
+}
+.welcome-brand__school {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.welcome-brand__course {
+  color: var(--ia-blue-200);
+  font-size: 0.8125rem;
+}
+
+.welcome-stage {
+  position: relative;
+  display: grid;
+  gap: var(--ds-space-6);
+  align-items: center;
+  padding-block: clamp(2rem, 7vw, 6rem) var(--ds-space-6);
+}
+.welcome-content {
+  position: relative;
+  z-index: 1;
+  min-inline-size: 0;
+}
+.welcome-intro {
+  animation: welcome-in 460ms ease-out both;
+}
+.welcome-title {
+  font-size: clamp(3.9rem, 16vw, 8.4rem);
+  letter-spacing: -0.085em;
+  line-height: 0.92;
+  margin-inline-start: -0.055em;
+  white-space: nowrap;
+}
+.welcome-title span {
+  color: var(--ia-violet-400);
+}
+.welcome-slogan {
+  margin-block: var(--ds-space-3) var(--ds-space-3);
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.welcome-description {
+  max-inline-size: 38ch;
+  color: var(--ia-blue-200);
+  line-height: 1.55;
+}
+.welcome-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2) var(--ds-space-4);
+  list-style: none;
+  padding: 0;
+  margin: var(--ds-space-4) 0 0;
+}
+.welcome-facts li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--ds-space-2);
+  color: var(--ia-blue-200);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+.welcome-facts strong {
+  font: 1rem var(--ia-font-mono);
+  color: var(--ia-white);
+}
+.welcome-facts li + li {
+  padding-inline-start: var(--ds-space-4);
+  border-inline-start: 1px solid var(--ia-blue-400);
+}
+
+.welcome-entry,
+.welcome-preview {
+  position: relative;
+  display: grid;
+  gap: var(--ds-space-3);
+  max-inline-size: 32rem;
+  margin-block-start: var(--ds-space-5);
+  padding: var(--ds-space-4);
+  border: 1px solid var(--ia-blue-400);
+  border-inline-start: 3px solid var(--ia-violet-400);
+  background: var(--ia-navy-800);
+  box-shadow: 4px 4px 0 var(--ia-blue-900);
+  animation: welcome-in 460ms 100ms ease-out both;
+}
+.welcome-entry .ds-field label {
+  font-size: 0.875rem;
+}
+.welcome-entry .ds-input {
+  background: var(--ia-navy-900);
+  color: var(--ia-white);
+  border-color: var(--ia-blue-400);
+  min-block-size: var(--ds-control-lg);
+  transition: border-color var(--ds-duration);
+}
+.welcome-entry .ds-input:focus {
+  border-color: var(--ia-cyan-200);
+}
+.welcome-entry .ds-input[aria-invalid="true"] {
+  border-color: var(--ia-violet-400);
+}
+.welcome-entry .ds-input::placeholder,
+.welcome-entry .ds-field__hint {
+  color: var(--ia-blue-200);
+}
+.welcome-entry .ds-field__error {
+  color: var(--ia-violet-200);
+}
+.welcome-entry .ds-field__hint,
+.welcome-entry .ds-field__error {
+  line-height: 1.35;
+}
+.welcome-entry .welcome-start {
+  align-self: start;
+  gap: var(--ds-space-3);
+  font-family: var(--ia-font-pixel);
+  font-size: 0.8125rem;
+}
+.welcome-entry .welcome-start:disabled {
+  background: var(--ia-blue-900);
+  border-color: var(--ia-blue-400);
+  color: var(--ia-blue-200);
+}
+.welcome-entry .welcome-start:enabled {
+  animation: welcome-arm 320ms ease-out;
+  box-shadow: 4px 4px 0 var(--ia-violet-400);
+}
+.welcome-entry .welcome-start:enabled:hover {
+  background: var(--ia-violet-600);
+  border-color: var(--ia-violet-600);
+}
+.welcome-entry .welcome-start:enabled:active {
+  background: var(--ia-blue-900);
+  transform: translate(1px, 1px);
+}
+.welcome-arrow {
+  block-size: 0.8em;
+  inline-size: 0.9em;
+  background: currentColor;
+  clip-path: polygon(
+    0 0,
+    35% 0,
+    35% 25%,
+    68% 25%,
+    68% 38%,
+    100% 38%,
+    100% 62%,
+    68% 62%,
+    68% 75%,
+    35% 75%,
+    35% 100%,
+    0 100%
+  );
+}
+.welcome-preview h2 {
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  overflow-wrap: anywhere;
+}
+.welcome-preview p {
+  color: var(--ia-blue-200);
+}
+.welcome-preview .ds-button {
+  justify-self: start;
+}
+.welcome-preview .ds-button:enabled:hover {
+  background: var(--ia-blue-200);
+  border-color: var(--ia-blue-200);
+  color: var(--ia-navy-900);
+}
+.welcome-sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.welcome-core {
+  display: block;
+  inline-size: min(100%, 39rem);
+  block-size: auto;
+  justify-self: center;
+  overflow: visible;
+  animation: welcome-in 680ms 100ms ease-out both;
+}
+.core-grid {
+  stroke: var(--ia-blue-900);
+  opacity: 0.58;
+}
+.core-frame,
+.core-orbit,
+.core-traces,
+.core-flow,
+.core-pins {
+  fill: none;
+  stroke-linejoin: round;
+}
+.core-frame {
+  stroke: var(--ia-blue-400);
+  stroke-width: 1.3;
+  opacity: 0.74;
+}
+.core-orbit {
+  stroke: var(--ia-blue-400);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+.core-orbit circle {
+  fill: var(--ia-navy-900);
+}
+.core-traces {
+  stroke: var(--ia-blue-600);
+  stroke-width: 1.9;
+}
+.core-flow {
+  stroke: var(--ia-cyan-200);
+  stroke-width: 2;
+  stroke-dasharray: 5 95;
+}
+.core-flow path {
+  animation: core-flow 3.8s ease-out both;
+}
+.core-flow path:nth-child(even) {
+  animation-delay: 200ms;
+}
+.core-nodes {
+  fill: var(--ia-cyan-200);
+}
+.core-node-pulse {
+  animation: core-pulse 1.8s ease-in-out 2;
+}
+.core-pins {
+  stroke: var(--ia-violet-400);
+  stroke-width: 4;
+}
+.core-shadow {
+  fill: var(--ia-violet-700);
+}
+.core-chip {
+  fill: var(--ia-blue-900);
+  stroke: var(--ia-violet-400);
+  stroke-width: 2;
+}
+.core-die {
+  fill: var(--ia-navy-800);
+  stroke: var(--ia-blue-400);
+  stroke-width: 1.35;
+}
+.core-rungs {
+  stroke: var(--ia-blue-400);
+  stroke-width: 1.6;
+}
+.core-strand {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: square;
+}
+.core-strand--a,
+.core-helix-points {
+  stroke: var(--ia-cyan-200);
+  fill: none;
+}
+.core-strand--b {
+  stroke: var(--ia-violet-400);
+}
+.core-helix-points {
+  fill: var(--ia-navy-900);
+}
+.core-pixels {
+  fill: var(--ia-violet-400);
+  animation: core-drift 3.6s ease-in-out both;
+}
+.core-pixel-crosses {
+  fill: none;
+  stroke: var(--ia-blue-400);
+}
+
+@keyframes welcome-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes welcome-arm {
+  from {
+    transform: translateY(2px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes core-flow {
+  from {
+    opacity: 0.1;
+    stroke-dashoffset: 100;
+  }
+  22% {
+    opacity: 0.85;
+  }
+  to {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes core-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes core-drift {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (min-width: 34rem) {
+  .welcome-entry {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .welcome-entry .welcome-start {
+    margin-block-start: calc(0.875rem * 1.55 + var(--ds-space-2));
+  }
+}
+@media (min-width: 55rem) {
+  .welcome-stage {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+  .welcome-title {
+    font-size: clamp(5rem, 9vw, 8.4rem);
+  }
+}
+@media (max-width: 33.99rem) {
+  .welcome-core {
+    max-inline-size: 22rem;
+  }
+  .core-orbit,
+  .core-pixels {
+    display: none;
+  }
+}
+@media (max-width: 24rem) {
+  .welcome-stage {
+    padding-block-start: var(--ds-space-5);
+  }
+  .welcome-facts {
+    margin-block-start: var(--ds-space-3);
+  }
+  .welcome-entry {
+    margin-block-start: var(--ds-space-4);
+    padding-block: var(--ds-space-3);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-intro,
+  .welcome-entry,
+  .welcome-preview,
+  .welcome-core,
+  .welcome .welcome-start:enabled,
+  .core-flow path,
+  .core-node-pulse,
+  .core-pixels {
+    animation: none;
+  }
+  .welcome-entry .welcome-start:enabled:active {
+    transform: none;
+  }
+  .core-flow {
+    display: none;
+  }
+}

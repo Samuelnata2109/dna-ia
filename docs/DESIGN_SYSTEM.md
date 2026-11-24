@@ -37,7 +37,7 @@ As fontes foram empacotadas localmente com Fontsource. As importações usam o s
 | `ProgressBar`                | `label`, `value` e `phase`. Renderiza `progress` nativo e limita o valor entre 0 e 100. A conclusão tem texto visível e descrição acessível.                                    |
 | `Container`, `Stack`, `Grid` | Limite de largura, espaçamento vertical e colunas responsivas sem alterar a semântica de regiões e títulos.                                                                     |
 
-O foco usa contorno de 3 px visível pelo teclado. Controles ativos têm alvo de pelo menos 44 px. Erro, desabilitado e conclusão têm texto ou semântica nativa além da cor. O sistema respeita `prefers-reduced-motion`; as transições de cor passam a 0 ms. A demonstração na raiz ilustra os componentes antes da construção da tela inicial.
+O foco usa contorno de 3 px visível pelo teclado. Controles ativos têm alvo de pelo menos 44 px. Erro, desabilitado e conclusão têm texto ou semântica nativa além da cor. O sistema respeita `prefers-reduced-motion`; as transições de cor passam a 0 ms. A demonstração para manutenção fica em `/dna-ia/#design-system`.
 
 ## Validação
 

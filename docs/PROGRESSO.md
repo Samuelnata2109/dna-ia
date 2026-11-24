@@ -27,3 +27,13 @@
 - [Demonstração em produção](https://samuelnata2109.github.io/dna-ia/) validada com Playwright em Chromium desktop (1280 × 720) e emulação de Pixel 7 (412 × 839). A página e a recarga, CSS, JavaScript e quatro arquivos WOFF2 retornaram HTTP 200. Press Start 2P 400, Space Grotesk 400 e 700 e JetBrains Mono 400 ficaram carregadas. Os estilos oficiais foram aplicados e a revisão das capturas confirmou a disposição dos componentes. A ação de teste funcionou por teclado e toque, com foco visível no desktop. O campo inválido e a conclusão de progresso mantiveram seus estados acessíveis. Não houve erros no console, falhas de rede ou rolagem horizontal.
 - **Orientação para as próximas etapas:** mantenha o verde reservado para conquista e conclusão. Valide a acessibilidade a cada funcionalidade nova, incluindo teclado, foco visível, contraste, nomes e estados acessíveis, toque e movimento reduzido quando aplicável.
 - **Próxima etapa:** tela inicial, mediante autorização explícita.
+
+## Etapa 03 — Tela inicial
+
+- Branch: `feature/03-welcome-screen`, baseada no commit publicado `6b7123c`. O registro da publicação da Etapa 02 foi preservado no commit `c4287fb`. Os documentos oficiais mantiveram os hashes anteriores.
+- A rota principal passou a exibir a entrada do DNA:IA, com identificação do curso, slogan, 15 perguntas em três fases, chip de DNA em SVG e formulário reutilizando o Design System. A demonstração de manutenção continua acessível em `/dna-ia/#design-system`.
+- O nickname é aparado e validado por grafemas Unicode, com máximo de 24. START aceita teclado e toque, protege a submissão contra repetição e abre uma confirmação provisória. O retorno mantém o nickname e restaura o foco. A navegação guarda o dado em memória.
+- Validações: `npm ci`, lint, Prettier, TypeScript, build e auditoria aprovados. O Vitest aprovou 14 testes na execução com dois workers após um timeout local na primeira rodada. O Playwright aprovou 12 testes, incluindo verificações das etapas anteriores. A auditoria reportou zero vulnerabilidades conhecidas.
+- Revisão visual em Chromium em 1440, 1280, 412, 375 e 320 px. O ajuste compacto deixou campo e START inteiramente visíveis no primeiro quadro de 320 × 568. Verificamos contraste amostral, foco, movimento reduzido, ausência de sobreposição e de rolagem horizontal, recarga em `/dna-ia/` e console sem erros.
+- Pull Request: aguardando abertura. A publicação da Etapa 03 depende do merge aprovado.
+- **Próxima etapa:** motor do quiz, mediante autorização explícita. Consulte [Arquitetura](ARQUITETURA.md) para o ponto de integração do início.
