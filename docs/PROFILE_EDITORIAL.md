@@ -1,6 +1,6 @@
-# Complementos editoriais propostos
+# Complementos editoriais aprovados
 
-**Situação: aguardando aprovação na revisão do PR da Etapa 06.** Estes textos complementam os perfis oficiais e estão tipados em `src/data/profileEditorial.ts`, separados do motor e de `profiles.ts`. São exibidos na interface. Não descrevem uma grade curricular confirmada nem prometem disciplinas ou certificações da escola.
+**Situação: aprovados técnica e editorialmente na Etapa 06.** Em 24/11/2026, o responsável pelo projeto confirmou o aceite dos textos complementares dos seis perfis, sem necessidade de reescrita. O PR #6 foi integrado no commit `0bd68834d3b60b06415c6497c431a37c9d8f1016`. Estes textos complementam os perfis oficiais e estão tipados em `src/data/profileEditorial.ts`, separados do motor e de `profiles.ts`. São exibidos na interface. Não descrevem uma grade curricular confirmada nem prometem disciplinas ou certificações da escola. A tabela preserva integralmente a redação aprovada.
 
 | Perfil        | Áreas de atuação (proposta)                                                                                       | Relação com o curso (proposta)                                                                                        |
 | ------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -10,3 +10,5 @@
 | THE CREATOR   | Criação de imagens, personagens, experiências digitais e produções audiovisuais com ferramentas de IA.            | Combinar criatividade, experimentação e uso responsável de IA ajuda a desenvolver novas formas de expressão digital.  |
 | THE MAKER     | Robótica, automação e desenvolvimento de dispositivos interativos que conectam sensores e sistemas inteligentes.  | Investigar programação, sensores e protótipos ajuda a conectar soluções de IA ao mundo físico.                        |
 | THE GUARDIAN  | Avaliação de sistemas de IA, proteção de informações e identificação de riscos, manipulações e desinformação.     | Estudar limites, impactos e formas de verificar sistemas ajuda a usar e desenvolver IA com responsabilidade.          |
+
+Na validação pública pós-merge de 24/11/2026, os dois textos de cada perfil foram comparados literalmente com `profileEditorial.ts` em 12 jornadas completas (seis desktop e seis mobile), sem divergências. Nenhuma redação foi alterada durante a validação.
