@@ -22,5 +22,5 @@
 - Implementação: tokens, fontes locais, Button, Input, Card, Badge, ProgressBar e componentes de layout. A raiz exibe uma demonstração dos componentes em vez de iniciar uma sessão de quiz. Veja [Design System](DESIGN_SYSTEM.md).
 - Validação: `npm ci`, lint, Prettier, TypeScript e build passaram. O Vitest aprovou seis testes. O Playwright aprovou seis verificações em desktop e mobile, incluindo foco, alvos de toque, contraste, fontes locais, movimento reduzido e recarga sob `/dna-ia/`. A auditoria npm retornou zero vulnerabilidades conhecidas.
 - Revisão visual em Chromium nas larguras de 1440, 412 e 320 px. Fontes, cartões, hierarquia, foco e barras de progresso foram conferidos sem rolagem horizontal.
-- Pull Request: aguardando abertura para revisão. O deploy da etapa depende do merge aprovado em `main`.
+- Pull Request [#2](https://github.com/Samuelnata2109/dna-ia/pull/2) aberto para revisão. Consulte os [checks do PR](https://github.com/Samuelnata2109/dna-ia/pull/2/checks) para o estado do CI. O deploy da etapa depende do merge aprovado em `main`.
 - **Próxima etapa:** tela inicial, após revisão do Design System e autorização explícita.
