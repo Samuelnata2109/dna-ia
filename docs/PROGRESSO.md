@@ -110,3 +110,11 @@
 - A validação pública da Etapa 07 aprovou 40 casos do Playwright em Chromium desktop e emulação de Pixel 7. Foram verificados salvamento, recarga e fechamento de aba, retomada parcial e de resultado, ordem das alternativas, posição, cancelamento e confirmação do reinício, nova sessão, teclado, toque emulado, movimento reduzido e os seis perfis. As cinco larguras entre 320 e 1440 px passaram sem rolagem horizontal.
 - Os 21 WebP publicados retornaram HTTP 200 com os hashes aprovados. Os cenários monitorados não registraram erros de console nem falhas de recursos. Web Share foi simulado e a Clipboard API do Chromium foi exercitada com permissões de teste. A mensagem pública e a cópia manual foram verificadas sem dados pessoais ou pontuações. [Detalhes e limites da validação](SESSION_AND_SHARING.md)
 - Refinamento futuro: avaliar a Clipboard API quando o Web Share falhar por motivo diferente de cancelamento. A alternativa atual nesses casos é a mensagem selecionável. Os documentos oficiais, o motor, os dados oficiais e as imagens aprovadas foram preservados. As evidências pós-merge ficam em dois documentos locais, sem commit na `main`. A Etapa 08 aguarda autorização explícita.
+
+## Etapa 08 — Refinamento e lançamento
+
+- A candidata `1.0.0` foi preparada em `feature/08-production-release` a partir de `08a5696620d8f575198eae5b28f9ca496e14dcba`. A branch preserva a validação pós-merge da Etapa 07.
+- O compartilhamento agora tenta a Clipboard API quando o Web Share falha. Após cancelamento, exibe o feedback correspondente. O foco do botão é mantido durante a operação e a cópia manual fica acessível pelo teclado.
+- A confirmação visual de salvamento permanece na interface. A região de anúncios prioriza retomada e falhas. A tela de recuperação explica problemas do armazenamento em linguagem direta e o resultado permite quebrar nicknames longos em telas estreitas.
+- A auditoria de contraste orientou o uso dos tons oficiais mais claros nos índices das alternativas, contadores e rótulos de conclusão de fase. As mensagens da revelação são agendadas no início da sequência para que atrasos de renderização intermediários não prolonguem o desbloqueio.
+- Consulte a [auditoria da candidata](RELEASE_AUDIT.md) e o [histórico das oito etapas](../CHANGELOG.md). A integração, deploy da Etapa 08, tag e lançamento público aguardam revisão e autorização.

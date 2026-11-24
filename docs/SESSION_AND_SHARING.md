@@ -22,7 +22,7 @@ O diálogo nativo de confirmação informa a exclusão do progresso, começa com
 
 `shareResult.ts` produz uma mensagem com codinome, nome profissional e a URL canônica `https://samuelnata2109.github.io/dna-ia/`. Não recebe nickname, respostas nem pontuações. O envio só é iniciado pelo botão, usando Web Share quando disponível. Cancelamento (`AbortError`) recebe feedback próprio. Sem Web Share, usa Clipboard; uma falha real ou indisponibilidade de ambas oferece texto selecionável para cópia manual. Nenhum sucesso de cópia é informado antes da confirmação da API. O botão bloqueia chamadas simultâneas e o feedback usa `role="status"`.
 
-Como refinamento futuro, avaliar uma tentativa de cópia pela Clipboard API quando o Web Share falhar por motivo diferente de cancelamento. Hoje essa falha abre a mensagem selecionável. O cancelamento voluntário encerra a ação e não dispara cópia.
+Na candidata 1.0.0, a aplicação tenta copiar pela Clipboard API quando o compartilhamento nativo falha. Se o navegador também recusar a cópia, o texto público selecionável fica disponível. O cancelamento voluntário encerra a ação antes da cópia e recebe feedback próprio. O botão mantém o foco durante a operação e evita acionamentos duplicados.
 
 ## Recursos e desempenho
 
