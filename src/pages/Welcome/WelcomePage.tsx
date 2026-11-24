@@ -7,8 +7,10 @@ import "./welcome.css";
 
 export function WelcomePage({
   onStart,
+  focusOnMount = false,
 }: {
   onStart: (nickname: string) => void;
+  focusOnMount?: boolean;
 }) {
   return (
     <main className="welcome">
@@ -43,7 +45,11 @@ export function WelcomePage({
       <Container className="welcome-stage">
         <div className="welcome-content">
           <WelcomeHero />
-          <NicknameForm initialNickname="" onStart={onStart} />
+          <NicknameForm
+            initialNickname=""
+            onStart={onStart}
+            focusOnMount={focusOnMount}
+          />
         </div>
         <DnaCore />
       </Container>

@@ -11,11 +11,17 @@ function getReducedMotion() {
   return window.matchMedia(query).matches;
 }
 
-export function ResultReveal({ children }: { children: React.ReactNode }) {
+export function ResultReveal({
+  children,
+  skip = false,
+}: {
+  children: React.ReactNode;
+  skip?: boolean;
+}) {
   const reduced = useSyncExternalStore(subscribe, getReducedMotion);
   const [step, setStep] = useState(0);
   const heading = useRef<HTMLHeadingElement>(null);
-  const revealed = reduced || step >= 3;
+  const revealed = skip || reduced || step >= 3;
   useEffect(() => {
     if (revealed) return;
     const timer = window.setTimeout(() => setStep((value) => value + 1), 750);

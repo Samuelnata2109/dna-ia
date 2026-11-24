@@ -1,9 +1,20 @@
-import { useState, useSyncExternalStore } from "react";
-import { DesignSystem } from "./pages/DesignSystem";
+import { lazy, Suspense, useState, useSyncExternalStore } from "react";
 import { WelcomePage } from "./pages/Welcome/WelcomePage";
-import { QuizPage } from "./pages/Quiz/QuizPage";
-import { createSession } from "./engine/session";
-import type { QuizSession } from "./types/quiz";
+import { useQuizSession } from "./hooks/useQuizSession";
+import { ResumeSession } from "./components/session/ResumeSession";
+import { RestartConfirmation } from "./components/session/RestartConfirmation";
+import "./styles/session.css";
+
+const QuizPage = lazy(() =>
+  import("./pages/Quiz/QuizPage").then((module) => ({
+    default: module.QuizPage,
+  })),
+);
+const DesignSystem = lazy(() =>
+  import("./pages/DesignSystem").then((module) => ({
+    default: module.DesignSystem,
+  })),
+);
 
 function subscribeToHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
@@ -16,11 +27,62 @@ function getHash() {
 
 export function App() {
   const hash = useSyncExternalStore(subscribeToHash, getHash);
-  const [session, setSession] = useState<QuizSession | null>(null);
-  if (hash === "#design-system") return <DesignSystem />;
-  return session ? (
-    <QuizPage session={session} onSessionChange={setSession} />
-  ) : (
-    <WelcomePage onStart={(nickname) => setSession(createSession(nickname))} />
+  const journey = useQuizSession();
+  const [confirmRestart, setConfirmRestart] = useState(false);
+  const [restartError, setRestartError] = useState("");
+  const [focusWelcome, setFocusWelcome] = useState(false);
+  function requestRestart() {
+    setRestartError("");
+    setConfirmRestart(true);
+  }
+  return (
+    <>
+      {journey.notice && (
+        <p role="status" className="session-notice">
+          {journey.notice}
+        </p>
+      )}
+      <Suspense
+        fallback={
+          <main className="session-screen">
+            <p role="status">Carregando sua jornada…</p>
+          </main>
+        }
+      >
+        {hash === "#design-system" ? (
+          <DesignSystem />
+        ) : journey.candidate || journey.invalid ? (
+          <ResumeSession
+            journey={journey.candidate}
+            onContinue={journey.resume}
+            onRestart={requestRestart}
+          />
+        ) : journey.active ? (
+          <QuizPage
+            journey={journey.active}
+            onChange={journey.update}
+            onRestart={requestRestart}
+            skipReveal={journey.skipReveal}
+          />
+        ) : (
+          <WelcomePage onStart={journey.start} focusOnMount={focusWelcome} />
+        )}
+      </Suspense>
+      {confirmRestart && (
+        <RestartConfirmation
+          message={restartError}
+          onCancel={() => setConfirmRestart(false)}
+          onConfirm={() => {
+            if (journey.restart()) {
+              setFocusWelcome(true);
+              setConfirmRestart(false);
+            } else
+              setRestartError(
+                "O progresso não pôde ser apagado. A jornada foi mantida. Tente novamente ou cancele.",
+              );
+          }}
+        />
+      )}
+    </>
   );
 }

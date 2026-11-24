@@ -78,5 +78,6 @@ test("quiz cabe nas larguras previstas e respeita movimento reduzido", async ({
       ),
       `largura ${width}px`,
     ).toBe(false);
+    await page.evaluate(() => localStorage.clear());
   }
 });

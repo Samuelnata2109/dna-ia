@@ -14,10 +14,10 @@ afterEach(() => {
   window.history.replaceState(null, "", window.location.pathname);
 });
 
-it("demonstra as ações e os estados de formulário e progresso", () => {
+it("demonstra as ações e os estados de formulário e progresso", async () => {
   window.history.replaceState(null, "", "#design-system");
   render(<App />);
-  const region = screen.getByRole("region", {
+  const region = await screen.findByRole("region", {
     name: "Componentes de interface",
   });
   const status = within(region).getByRole("status");

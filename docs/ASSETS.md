@@ -28,7 +28,7 @@ O nome alternativo de cada imagem é a descrição oficial da pergunta. As image
 
 ## Ilustrações dos perfis — Etapa 06
 
-**Situação: geradas e implementadas, aguardando aceite editorial antes do merge.** A [prancha de seis perfis](review/profiles-contact-sheet.png) permite comparar os personagens e seus contextos. Os arquivos locais estão em `public/images/profiles/`, WebP quadrado de 960 × 960 px. Foram gerados originalmente com a ferramenta de imagens do ambiente em 24/11/2026, sem imagem de terceiro fornecida como referência, sob os termos aplicáveis da ferramenta. Os PNG originais permanecem no diretório de geração do Codex; foram redimensionados e codificados em WebP (qualidade 0,82) via canvas do Chromium. Não há recurso externo incorporado com licença de banco de imagens.
+**Situação: implementadas e aprovadas técnica e editorialmente.** Em 24/11/2026, o responsável pelo projeto confirmou o aceite das seis ilustrações, sem necessidade de substituição. A [prancha de seis perfis](review/profiles-contact-sheet.png) permite comparar os personagens e seus contextos. Os arquivos locais estão em `public/images/profiles/`, WebP quadrado de 960 × 960 px. Foram gerados originalmente com a ferramenta de imagens do ambiente em 24/11/2026, sem imagem de terceiro fornecida como referência, sob os termos aplicáveis da ferramenta. Os PNG originais permanecem no diretório de geração do Codex; foram redimensionados e codificados em WebP (qualidade 0,82) via canvas do Chromium. Não há recurso externo incorporado com licença de banco de imagens.
 
 | Perfil        | Arquivo              |  Bytes | Contexto e texto alternativo                                                       |
 | ------------- | -------------------- | -----: | ---------------------------------------------------------------------------------- |
@@ -40,3 +40,9 @@ O nome alternativo de cada imagem é a descrição oficial da pergunta. As image
 | THE GUARDIAN  | `the-guardian.webp`  |  90734 | Personagem verificando uma rede protegida por um escudo digital.                   |
 
 Cada prompt especificou um retrato quadrado de personagem desbloqueável, concept art 3D estilizada, fundo marinho, azul/violeta e ciano controlado em superfícies escuras, sem marcas, textos, vermelho ou verde. A cena variou conforme as identidades gráficas oficiais (terminais/chips, dados/lentes, redes neurais, criação digital, robótica/sensores e escudos/verificação). Todos receberam o mesmo enquadramento e acabamento. A aplicação carrega somente a ilustração vencedora; os textos alternativos são definidos no complemento tipado de cada perfil.
+
+Validação pós-merge em 24/11/2026: as seis ilustrações do commit publicado `0bd68834d3b60b06415c6497c431a37c9d8f1016` foram carregadas nas jornadas dos respectivos perfis, em desktop e mobile. Todas responderam HTTP 200, decodificaram em 960 × 960 px e tiveram SHA-256 correspondente aos arquivos locais aprovados. Cada jornada requisitou somente a ilustração do perfil vencedor. Os hashes e resultados estão no relatório local `test-results/published-stage06/report.json` (ignorado pelo Git). As 15 imagens das perguntas anteriormente aprovadas permaneceram intactas.
+
+## Revisão de recursos na Etapa 07
+
+As 21 imagens aprovadas permanecem sem alteração de conteúdo, bytes, formato ou dimensões. Não houve regeneração ou recompressão. Foram mantidos carregamento por pergunta, dimensões explícitas, decodificação assíncrona e prioridade para a ilustração vencedora. O código das telas é carregado sob demanda; isso também adia a referência às imagens dos perfis até o resultado. O manifesto `tests/fixtures/approved-assets.json` verifica seus hashes SHA-256 em teste, preservando o aceite editorial já registrado.
