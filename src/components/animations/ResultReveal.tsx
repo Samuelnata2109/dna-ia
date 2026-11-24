@@ -24,9 +24,14 @@ export function ResultReveal({
   const revealed = skip || reduced || step >= 3;
   useEffect(() => {
     if (revealed) return;
-    const timer = window.setTimeout(() => setStep((value) => value + 1), 750);
-    return () => window.clearTimeout(timer);
-  }, [step, revealed]);
+    const timers = [1, 2, 3].map((nextStep) =>
+      window.setTimeout(
+        () => setStep((current) => Math.max(current, nextStep)),
+        nextStep * 750,
+      ),
+    );
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [revealed]);
   useEffect(() => {
     if (!revealed) heading.current?.focus();
   }, [revealed]);

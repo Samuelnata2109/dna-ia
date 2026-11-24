@@ -79,6 +79,15 @@ it("rejeita sessões incompletas e corrompidas antes de revelar", () => {
     ),
   ).toThrow();
 });
+it("revela no prazo mesmo se o navegador atrasar uma atualização intermediária", () => {
+  vi.useFakeTimers();
+  render(<ResultPage onRestart={() => {}} session={completed("builder")} />);
+
+  act(() => vi.advanceTimersByTime(2250));
+
+  expect(screen.getByRole("heading", { name: "THE BUILDER" })).toHaveFocus();
+});
+
 it("conclui a sequência curta e remove os timers ao desmontar", () => {
   vi.useFakeTimers();
   const view = render(
