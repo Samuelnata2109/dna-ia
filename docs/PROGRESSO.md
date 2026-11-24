@@ -11,5 +11,5 @@
 - Validação local em 24/11/2026: `npm ci`, lint, Prettier, TypeScript e `git diff --check` aprovados. O Vitest passou em um teste unitário e um de integração. O Playwright passou em desktop e mobile, incluindo abertura e recarga em `/dna-ia/`.
 - O build gerou `dist/` com os recursos no caminho previsto para o Pages. A auditoria do npm reportou zero vulnerabilidades conhecidas.
 - Alterações desta etapa: aplicação em `src/`, suítes em `tests/`, configurações na raiz, automação e template em `.github/` e documentação permanente.
-- Pull Request: aguarda abertura para revisão e execução do CI no GitHub.
+- Pull Request [#1](https://github.com/Samuelnata2109/dna-ia/pull/1), da branch da etapa para `main`. O commit inicial é `447dcee`. Consulte os [checks do PR](https://github.com/Samuelnata2109/dna-ia/pull/1/checks) para o estado do CI. Merge e primeira publicação aguardam aprovação.
 - **Antes da Etapa 02:** validar visualmente as duas páginas do PDF oficial e obter autorização para iniciar o Design System.
