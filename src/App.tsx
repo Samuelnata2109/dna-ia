@@ -37,10 +37,23 @@ export function App() {
   }
   return (
     <>
-      {journey.notice && (
-        <p role="status" className="session-notice">
-          {journey.notice}
-        </p>
+      {hash !== "#design-system" && (
+        <>
+          {journey.notice && !journey.liveNotice && (
+            <p className="session-notice">{journey.notice}</p>
+          )}
+          <p
+            className={
+              journey.liveNotice ? "session-notice" : "session-announcement"
+            }
+            aria-label="Estado da jornada"
+            aria-label="Estado da jornada"
+            role="status"
+            aria-atomic="true"
+          >
+            {journey.liveNotice}
+          </p>
+        </>
       )}
       <Suspense
         fallback={

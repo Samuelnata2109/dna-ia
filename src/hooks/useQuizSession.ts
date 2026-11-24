@@ -9,6 +9,7 @@ import {
 
 const unavailable =
   "Não foi possível salvar neste dispositivo. Sua jornada continua nesta aba, mas pode ser perdida ao fechar ou atualizar.";
+const savedNotice = "Progresso salvo neste dispositivo.";
 export function useQuizSession() {
   const [loaded] = useState(readJourney);
   const [candidate, setCandidate] = useState(
@@ -24,7 +25,7 @@ export function useQuizSession() {
   function update(journey: StoredJourney) {
     const saved = saveJourney(journey);
     setActive(journey);
-    setNotice(saved ? "Progresso salvo neste dispositivo." : unavailable);
+    setNotice(saved ? savedNotice : unavailable);
   }
   function start(nickname: string) {
     if (candidate || invalid || active) return;
@@ -46,12 +47,7 @@ export function useQuizSession() {
     );
   }
   function restart() {
-    if (!clearJourney()) {
-      setNotice(
-        "Não foi possível apagar o progresso salvo. A jornada foi mantida. Libere o armazenamento e tente novamente.",
-      );
-      return false;
-    }
+    if (!clearJourney()) return false;
     setActive(null);
     setCandidate(null);
     setInvalid(false);
@@ -65,6 +61,7 @@ export function useQuizSession() {
     active,
     skipReveal,
     notice,
+    liveNotice: notice === savedNotice ? "" : notice,
     start,
     update,
     resume,

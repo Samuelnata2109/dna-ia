@@ -60,3 +60,24 @@ it("distingue cancelamento de falha real sem copiar após cancelar", async () =>
     ).status,
   ).toBe("manual");
 });
+
+it.each(["copied", "manual"] as const)(
+  "tenta copiar após falha do Web Share e retorna %s",
+  async (status) => {
+    const profile = profiles[3];
+    const share = vi
+      .fn()
+      .mockRejectedValue(new DOMException("Sem acesso", "NotAllowedError"));
+    const writeText = vi.fn(async () => {
+      if (status === "manual") throw new Error("Cópia indisponível");
+    });
+    const text = `${shareMessage(profile)} ${QUIZ_URL}`;
+
+    await expect(shareResult(profile, { share, writeText })).resolves.toEqual({
+      status,
+      text,
+    });
+    expect(share).toHaveBeenCalledBefore(writeText);
+    expect(writeText).toHaveBeenCalledExactlyOnceWith(text);
+  },
+);

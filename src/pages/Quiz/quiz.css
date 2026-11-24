@@ -1,5 +1,6 @@
 .quiz {
   --quiz-accent: var(--ia-blue-400);
+  --quiz-accent-text: var(--ia-blue-200);
   min-height: 100dvh;
   color: var(--ia-white);
   background:
@@ -10,6 +11,7 @@
 .quiz[data-phase="2"],
 .quiz[data-phase="3"] {
   --quiz-accent: var(--ia-violet-400);
+  --quiz-accent-text: var(--ia-violet-200);
 }
 .quiz-shell {
   max-width: 1100px;
@@ -85,7 +87,7 @@
 }
 .quiz-counter,
 .quiz-kicker {
-  color: var(--quiz-accent);
+  color: var(--quiz-accent-text);
   font: 0.75rem var(--ia-font-mono);
   letter-spacing: 0.12em;
 }
@@ -180,7 +182,7 @@
 }
 .quiz-option__index {
   flex: none;
-  color: var(--quiz-accent);
+  color: var(--quiz-accent-text);
   font: 0.75rem var(--ia-font-mono);
 }
 .quiz-option__text {

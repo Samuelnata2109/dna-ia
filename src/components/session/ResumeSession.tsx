@@ -56,8 +56,8 @@ export function ResumeSession({
           </>
         ) : (
           <p>
-            O arquivo salvo está incompatível ou contém dados inválidos. Você
-            pode apagá-lo e começar uma nova experiência.
+            Não conseguimos abrir o progresso salvo neste navegador. Você pode
+            apagá-lo e começar uma nova jornada.
           </p>
         )}
         <div className="session-buttons">

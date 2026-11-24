@@ -18,6 +18,7 @@ export function ResultActions({
     if (working.current) return;
     working.current = true;
     setBusy(true);
+    setFeedback("");
     setManualText("");
     try {
       const result = await shareResult(profile);
@@ -40,7 +41,7 @@ export function ResultActions({
     <section className="result-actions" aria-labelledby="result-actions-title">
       <h2 id="result-actions-title">Sua descoberta continua</h2>
       <div className="session-buttons">
-        <Button onClick={() => void share()} disabled={busy} aria-busy={busy}>
+        <Button onClick={() => void share()} aria-disabled={busy}>
           COMPARTILHAR RESULTADO
         </Button>
         <Button variant="secondary" onClick={onRestart} disabled={busy}>
