@@ -14,6 +14,7 @@ import { validateSession } from "../../engine/validateSession";
 import type { QuizSession } from "../../types/quiz";
 import { QuestionCard } from "../../components/quiz/QuestionCard";
 import "./quiz.css";
+import { ResultPage } from "../Result/ResultPage";
 
 type View =
   | { kind: "question"; index: number }
@@ -58,6 +59,8 @@ export function QuizPage({
       setView({ kind: "question", index: view.index + 1 });
     }
   }
+
+  if (view.kind === "complete") return <ResultPage session={session} />;
 
   return (
     <main className="quiz" data-phase={phase}>
@@ -161,32 +164,7 @@ export function QuizPage({
               </Button>
             </div>
           </section>
-        ) : (
-          <section
-            className="quiz-milestone quiz-milestone--complete"
-            aria-labelledby="quiz-complete-title"
-          >
-            <span className="quiz-milestone__symbol" aria-hidden="true">
-              ✦
-            </span>
-            <p className="quiz-kicker">MISSÃO CONCLUÍDA · 100% XP</p>
-            <h1 id="quiz-complete-title" tabIndex={-1} ref={headingRef}>
-              15 respostas registradas!
-            </h1>
-            <p>
-              Você concluiu as três fases, <bdi>{session.nickname}</bdi>. A
-              revelação da sua identidade tecnológica chegará na próxima etapa.
-            </p>
-            <div className="quiz-navigation">
-              <Button
-                variant="secondary"
-                onClick={() => setView({ kind: "question", index: 14 })}
-              >
-                Rever última pergunta
-              </Button>
-            </div>
-          </section>
-        )}
+        ) : null}
       </Container>
     </main>
   );

@@ -35,4 +35,4 @@ A sessão contém `version: 1`, `nickname`, `answers` e `optionOrder`. Respostas
 
 ## Limite atual
 
-O motor permanece independente de React. START agora cria a sessão e abre a pergunta 01. A interface usa as funções públicas do motor; nenhum critério de pontuação ou desempate foi alterado. A conclusão mostra somente a confirmação de 15 respostas. Persistência, revelação dos perfis e compartilhamento permanecem para etapas posteriores.
+O motor permanece independente de React. START cria a sessão e abre a pergunta 01. A interface usa as funções públicas do motor; nenhum critério de pontuação ou desempate foi alterado. Na Etapa 06, `ResultPage` passou a chamar `getFinalResult(session)` após a conclusão legítima das 15 respostas. A validação do motor precede qualquer resultado; nenhum ponto individual é exibido. Persistência e compartilhamento permanecem para etapas posteriores.

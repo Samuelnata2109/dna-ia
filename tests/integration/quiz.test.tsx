@@ -47,7 +47,7 @@ it("inicia na pergunta oficial, bloqueia avanço e preserva resposta e ordem ao 
   ).not.toBeInTheDocument();
 });
 
-it("percorre as três fases, mostra 100% e conclui sem revelar perfil", () => {
+it("percorre as três fases e inicia a revelação somente após concluir", () => {
   start();
   for (let index = 0; index < questions.length; index++) {
     expect(
@@ -71,21 +71,12 @@ it("percorre as três fases, mostra 100% e conclui sem revelar perfil", () => {
     }
   }
   expect(
-    screen.getByRole("heading", { name: "15 respostas registradas!" }),
+    screen.getByRole("heading", { name: "Sua identidade está chegando." }),
   ).toHaveFocus();
   expect(screen.getByRole("progressbar")).toHaveAttribute("value", "100");
   expect(
     screen.queryByText(/THE BUILDER|THE BRAIN|THE CREATOR/),
   ).not.toBeInTheDocument();
-  fireEvent.click(
-    screen.getByRole("button", { name: "Rever última pergunta" }),
-  );
-  expect(
-    screen.getByRole("heading", { name: questions[14].prompt }),
-  ).toBeVisible();
-  expect(
-    screen
-      .getAllByRole("radio")
-      .some((radio) => (radio as HTMLInputElement).checked),
-  ).toBe(true);
+  fireEvent.click(screen.getByRole("button", { name: "Pular animação" }));
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/THE /);
 });
