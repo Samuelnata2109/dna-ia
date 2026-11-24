@@ -1,5 +1,7 @@
 # Imagens das perguntas
 
+A [prancha de revisão](review/questions-contact-sheet.png) apresenta as 15 miniaturas com numeração das perguntas e identificação das cenas. Ela foi montada a partir dos WebP existentes, sem substituí-los. As capturas [Level 01](review/transition-5.png), [Level 02](review/transition-10.png) e [conclusão final](review/transition-15.png) registram os destaques azul, violeta e verde, respectivamente.
+
 As 15 ilustrações foram geradas para o DNA:IA com a ferramenta de geração de imagens do ambiente em 24/11/2026, a partir das descrições oficiais de `src/data/questions.ts`. Nenhuma fotografia, imagem de banco, marca ou material de terceiro foi fornecido como referência. **Licença/origem:** geração para este projeto sob os termos aplicáveis da ferramenta, sem licença de recurso externo incorporado. Os PNG de origem permanecem no histórico local da ferramenta; o repositório contém apenas WebP otimizados. Cada arquivo mede 1280 × 720 px, aparece sob `/dna-ia/images/questions/` e está marcado como **implementado**. A revisão visual final em contexto de interface e o aceite editorial cabem à revisão do PR.
 
 | Pergunta | Arquivo            | Cena baseada na descrição oficial            | Origem, formato e situação           |
