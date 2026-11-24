@@ -4,7 +4,7 @@ test("mantém foco, alvos de toque, fontes locais e layout responsivo", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("./");
+  await page.goto("./#design-system");
   const button = page.getByRole("button", { name: "Testar ação" });
   await expect(button).toBeVisible();
   await page.keyboard.press("Tab");
@@ -49,7 +49,7 @@ test("mantém foco, alvos de toque, fontes locais e layout responsivo", async ({
 test("mantém contraste nos textos, controles e indicadores", async ({
   page,
 }) => {
-  await page.goto("./");
+  await page.goto("./#design-system");
   const button = page.getByRole("button", { name: "Testar ação" });
   await expect(button).toBeVisible();
   await page.keyboard.press("Tab");

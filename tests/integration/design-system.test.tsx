@@ -9,9 +9,13 @@ import {
 import { afterEach, expect, it } from "vitest";
 import { App } from "../../src/App";
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  window.history.replaceState(null, "", window.location.pathname);
+});
 
 it("demonstra as ações e os estados de formulário e progresso", () => {
+  window.history.replaceState(null, "", "#design-system");
   render(<App />);
   const region = screen.getByRole("region", {
     name: "Componentes de interface",
