@@ -1,0 +1,3 @@
+* text=auto eol=lf
+/docs/PROMPT_MESTRE.md -text whitespace=cr-at-eol
+/docs/Paleta_Cores_Curso_IA.pdf binary

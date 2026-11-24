@@ -1,0 +1,7 @@
+package-lock.json
+docs/PROMPT_MESTRE.md
+docs/Paleta_Cores_Curso_IA.pdf
+dist
+coverage
+playwright-report
+test-results
