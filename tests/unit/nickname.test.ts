@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  nicknameLimit,
-  validateNickname,
-} from "../../src/pages/Welcome/nickname";
+import { nicknameLimit, validateNickname } from "../../src/utils/nickname";
 
 describe("validação do nickname", () => {
   it.each(["", " \t ", "\u00a0\u2003"])(

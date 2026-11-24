@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { nicknameLimit, validateNickname } from "./nickname";
+import { nicknameLimit, validateNickname } from "../../utils/nickname";
 
 type NicknameFormProps = {
   initialNickname: string;
