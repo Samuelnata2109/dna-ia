@@ -227,7 +227,15 @@
 }
 .ds-progress progress::-webkit-progress-value {
   background: var(--ds-progress-fill);
+  transition: width 240ms ease-out;
 }
 .ds-progress progress::-moz-progress-bar {
   background: var(--ds-progress-fill);
+  transition: width 240ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-progress progress::-webkit-progress-value,
+  .ds-progress progress::-moz-progress-bar {
+    transition: none;
+  }
 }

@@ -28,12 +28,9 @@ test("inicia pelo teclado no desktop e pelo toque no mobile", async ({
   } else {
     await field.press("Enter");
   }
-  await expect(
-    page.getByRole("heading", { name: /Tudo pronto.*Fênix 🧩/ }),
-  ).toBeFocused();
-  await page.getByRole("button", { name: "Voltar à entrada" }).click();
-  await expect(field).toHaveValue("Fênix 🧩");
-  await expect(field).toBeFocused();
+  await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+  await expect(page.getByText("Fênix 🧩")).toBeVisible();
+  await expect(page.getByRole("radio")).toHaveCount(6);
   expect(errors).toEqual([]);
 });
 

@@ -2,7 +2,7 @@
 
 ## Dados oficiais
 
-`src/data/questions.ts` contém as 15 perguntas da seção 10 do [Prompt Mestre](PROMPT_MESTRE.md), em sequência oficial. Cada pergunta conserva número, enunciado, descrição da imagem, seis alternativas e associação A–F aos perfis. Os IDs são `q01` a `q15` e `q01-a` a `q15-f`. As descrições das imagens são dados para a Etapa 05; as imagens definitivas ainda não foram implementadas.
+`src/data/questions.ts` contém as 15 perguntas da seção 10 do [Prompt Mestre](PROMPT_MESTRE.md), em sequência oficial. Cada pergunta conserva número, enunciado, descrição da imagem, seis alternativas e associação A–F aos perfis. Os IDs são `q01` a `q15` e `q01-a` a `q15-f`. A Etapa 05 acrescentou as 15 imagens correspondentes em `public/images/questions/`, documentadas em [Assets](ASSETS.md), sem modificar o banco oficial.
 
 `src/data/profiles.ts` contém os seis codinomes, nomes profissionais, descrições, características, exemplos de projetos e elementos de identidade gráfica da seção 11. A seção exige áreas de atuação e relação com o curso, mas não fornece textos específicos para esses dois campos. Eles dependem de conteúdo aprovado para a futura tela de resultado. Nenhuma ilustração de perfil foi produzida nesta etapa.
 
@@ -31,8 +31,8 @@ A sessão contém `version: 1`, `nickname`, `answers` e `optionOrder`. Respostas
 
 `getFinalResult` aceita somente uma sessão validada e completa. Primeiro escolhe a maior pontuação total. Se houver empate, `resolveTie` compara somente os empatados pelos pontos obtidos no Level 03. Se ainda houver empate, percorre as respostas de `q15` até `q01` e escolhe o primeiro perfil do grupo restante. Não há sorteio nem preferência alfabética no resultado.
 
-`calculateProgress` conta perguntas respondidas, indica pendentes, fase ativa, conclusão de cada fase, porcentagem e XP. A porcentagem usa `floor(respondidas / 15 × 100)`: 0%, 33%, 66% e 100% nos marcos principais. XP é igual à porcentagem de progresso e não representa acerto, capacidade ou desempenho. A barra e as transições visuais pertencem à Etapa 05.
+`calculateProgress` conta perguntas respondidas, indica pendentes, fase ativa, conclusão de cada fase, porcentagem e XP. A porcentagem usa `floor(respondidas / 15 × 100)`: 0%, 33%, 66% e 100% nos marcos principais. XP é igual à porcentagem de progresso e não representa acerto, capacidade ou desempenho. A interface da Etapa 05 usa esse valor na barra visual e nas transições.
 
 ## Limite atual
 
-O motor não depende de React nem altera a tela inicial. START continua abrindo a confirmação provisória. A interface das perguntas, as imagens, a persistência, a revelação dos perfis e o compartilhamento permanecem nas etapas autorizadas posteriores.
+O motor permanece independente de React. START agora cria a sessão e abre a pergunta 01. A interface usa as funções públicas do motor; nenhum critério de pontuação ou desempate foi alterado. A conclusão mostra somente a confirmação de 15 respostas. Persistência, revelação dos perfis e compartilhamento permanecem para etapas posteriores.

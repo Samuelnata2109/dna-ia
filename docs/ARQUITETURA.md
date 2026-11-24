@@ -2,7 +2,7 @@
 
 O DNA:IA é uma aplicação React compilada pelo Vite para arquivos estáticos. O TypeScript está em modo strict. A tela inicial abre em `/dna-ia/` e pode ser recarregada nesse endereço. A demonstração de manutenção do Design System está em `/dna-ia/#design-system`. O fragmento funciona no GitHub Pages sem uma regra de reescrita.
 
-A estrutura evolui com o escopo aprovado. Componentes e telas cuidam da interface. Dados contêm perguntas e perfis com IDs estáveis. O motor recebe as respostas e calcula um resultado determinístico sem depender de React. A persistência local e a integração da interface serão implementadas nas etapas correspondentes.
+A estrutura evolui com o escopo aprovado. Componentes e telas cuidam da interface. Dados contêm perguntas e perfis com IDs estáveis. O motor recebe as respostas e calcula um resultado determinístico sem depender de React. A persistência local será implementada na etapa correspondente.
 
 Vitest e React Testing Library cobrem comportamento e integração. Playwright abre o build de produção no subdiretório com Chromium desktop e mobile. O CI compartilha as mesmas validações entre os Pull Requests e a publicação em `main`.
 
@@ -10,7 +10,7 @@ Vitest e React Testing Library cobrem comportamento e integração. Playwright a
 
 `WelcomePage` compõe `WelcomeHero`, `NicknameForm` e o SVG decorativo `DnaCore`. O formulário reaproveita `Input` e `Button`, e `nickname.ts` contém a validação pura. O limite de 24 caracteres usa grafemas Unicode via `Intl.Segmenter`; espaços nas extremidades são removidos antes de contar. Acentos combinados e emojis compostos contam como um caractere percebido.
 
-`NicknameForm` chama `onStart(nickname)` uma única vez para um valor válido. A página guarda o nickname normalizado em memória e alterna entre entrada e destino provisório. A confirmação recebe foco e o retorno restaura o valor e o foco no campo. O destino pode ser substituído pela experiência real quando a interface do quiz estiver disponível. A recarga inicia uma nova entrada, sem recuperação ou coleta de dados.
+`NicknameForm` chama `onStart(nickname)` uma única vez para um valor válido. `App` cria uma sessão com `createSession` e abre `QuizPage` diretamente na pergunta 01. A recarga inicia uma nova entrada, sem recuperação ou coleta de dados.
 
 O chip de DNA, os circuitos e a rede são SVG inline com cores dos tokens oficiais. As animações CSS de entrada, ativação, fluxo e pulsação têm duração limitada e são removidas com `prefers-reduced-motion`. O texto e os controles aparecem antes da ilustração no fluxo mobile.
 
@@ -18,4 +18,10 @@ O chip de DNA, os circuitos e a rede são SVG inline com cores dos tokens oficia
 
 `src/data/` guarda as perguntas, perfis e fases oficiais, separados de `src/types/quiz.ts`. `src/engine/` contém funções puras de sessão, embaralhamento, validação, progresso, pontuação e desempate. A regra de nickname foi movida sem alteração de comportamento para `src/utils/nickname.ts`, para uso comum do formulário e da criação de sessão.
 
-O fluxo futuro será: validar nickname → criar sessão e sortear opções uma vez → registrar respostas por IDs estáveis → calcular progresso a partir das respostas → validar conclusão → calcular resultado. A sessão guarda a ordem sorteada para que a navegação posterior preserve a apresentação. A pontuação é derivada das respostas, sem contador mutável. Dados corrompidos são rejeitados por inteiro; a persistência e a recuperação local só serão integradas em etapa posterior. Veja [Motor do quiz](QUIZ_ENGINE.md).
+O fluxo é: validar nickname → criar sessão e sortear opções uma vez → registrar respostas por IDs estáveis → calcular progresso a partir das respostas → validar conclusão. A sessão guarda a ordem sorteada para que a navegação preserve a apresentação. A pontuação é derivada das respostas, sem contador mutável. Dados corrompidos são rejeitados por inteiro; a persistência e a recuperação local só serão integradas em etapa posterior. Veja [Motor do quiz](QUIZ_ENGINE.md).
+
+## Interface das perguntas
+
+`App` mantém a sessão em memória e passa sua atualização a `QuizPage`. A página mantém apenas a posição e o tipo de tela (pergunta, transição de fase ou conclusão); respostas, fase e XP são derivados da sessão e dos dados oficiais. `QuestionCard` renderiza a imagem local e um `fieldset` de seis radios nativos na ordem de `optionOrder`. A escolha é gravada por ID via `recordAnswer`, podendo substituir outra sem perder as demais. A navegação não avança sem resposta. Após as perguntas 05 e 10, uma transição controlada por botão informa a fase concluída. Após a 15, `validateSession(session, true)` precede a confirmação provisória, que não revela pontuação nem perfil.
+
+As 15 imagens WebP ficam em `public/images/questions/` com caminho prefixado por `import.meta.env.BASE_URL`, dimensões 1280 × 720 e carregamento sob demanda após a primeira. Consulte [Assets](ASSETS.md). A demonstração em `#design-system` continua acessível. Não há `localStorage` nesta etapa.

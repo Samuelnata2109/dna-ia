@@ -41,15 +41,14 @@ it("anuncia espaços e excesso de caracteres e habilita START com nickname váli
   expect(field).not.toBeInvalid();
   expect(start).toBeEnabled();
   fireEvent.click(start);
-  const preview = screen.getByRole("heading", { name: /Tudo pronto.*Lú 🧩/ });
-  expect(preview).toHaveFocus();
+  const question = screen.getByRole("heading", { level: 1 });
+  expect(question).toHaveFocus();
+  expect(screen.getByText("Lú 🧩")).toBeVisible();
+  expect(screen.getAllByRole("radio")).toHaveLength(6);
   expect(
     screen.queryByRole("button", { name: "START" }),
   ).not.toBeInTheDocument();
-  fireEvent.click(screen.getByRole("button", { name: "Voltar à entrada" }));
-  const returned = screen.getByRole("textbox", { name: "Seu nickname" });
-  expect(returned).toHaveValue("Lú 🧩");
-  expect(returned).toHaveFocus();
+  expect(screen.getByRole("button", { name: /Avançar/ })).toBeDisabled();
 });
 
 it("envia texto literal e ignora submissões repetidas do mesmo formulário", () => {
