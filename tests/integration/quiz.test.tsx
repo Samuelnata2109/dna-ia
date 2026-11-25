@@ -1,5 +1,11 @@
 // @vitest-environment jsdom
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
 import { afterEach, expect, it } from "vitest";
 import { App } from "../../src/App";
 import { questions } from "../../src/data/questions";
@@ -11,7 +17,10 @@ async function start() {
   fireEvent.change(screen.getByRole("textbox", { name: "Seu nickname" }), {
     target: { value: "Fênix" },
   });
-  fireEvent.click(screen.getByRole("button", { name: "START" }));
+  await act(async () => {
+    fireEvent.click(screen.getByRole("button", { name: "START" }));
+    await import("../../src/pages/Quiz/QuizPage");
+  });
   await screen.findByRole("heading", { name: questions[0].prompt });
 }
 

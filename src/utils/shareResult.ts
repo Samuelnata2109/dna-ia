@@ -13,37 +13,30 @@ export async function shareResult(
   profile: ShareProfile,
   services?: ShareServices,
 ) {
-  const text = `${shareMessage(profile)} ${QUIZ_URL}`;
-  let api: ShareServices;
+  const message = shareMessage(profile);
+  const text = `${message} ${QUIZ_URL}`;
   try {
-    api = services ?? {
-      share: navigator.share?.bind(navigator),
-      writeText: navigator.clipboard?.writeText?.bind(navigator.clipboard),
-    };
-  } catch {
-    return { status: "manual" as const, text };
-  }
-  if (api.share) {
-    try {
-      await api.share({
-        title: "Meu DNA:IA",
-        text: shareMessage(profile),
-        url: QUIZ_URL,
-      });
+    const share = services ? services.share : navigator.share?.bind(navigator);
+    if (share) {
+      await share({ title: "Meu DNA:IA", text: message, url: QUIZ_URL });
       return { status: "shared" as const, text };
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError")
-        return { status: "cancelled" as const, text };
-      return { status: "manual" as const, text };
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      return { status: "cancelled" as const, text };
     }
   }
-  if (api.writeText) {
-    try {
-      await api.writeText(text);
+  try {
+    const clipboard = services ? undefined : navigator.clipboard;
+    const writeText = services
+      ? services.writeText
+      : clipboard?.writeText?.bind(clipboard);
+    if (writeText) {
+      await writeText(text);
       return { status: "copied" as const, text };
-    } catch {
-      /* Offer selectable text below. */
     }
+  } catch {
+    // The browser can deny clipboard access after native sharing fails.
   }
   return { status: "manual" as const, text };
 }

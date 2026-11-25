@@ -35,7 +35,9 @@ it("anuncia espaços e excesso de caracteres e habilita START com nickname váli
 
   fireEvent.change(field, { target: { value: "ú".repeat(25) } });
   expect(start).toBeDisabled();
-  expect(screen.getByRole("status")).toHaveTextContent("Use até 24 caracteres");
+  expect(screen.getByRole("status", { name: "" })).toHaveTextContent(
+    "Use até 24 caracteres",
+  );
 
   fireEvent.change(field, { target: { value: "  Lú 🧩  " } });
   expect(field).not.toBeInvalid();

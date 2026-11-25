@@ -127,7 +127,7 @@ test("retoma resultado, compartilha, confirma reinício e cria sessão nova", as
   expect(current.session.nickname).toBe("Nova jornada");
 });
 
-test("fallback de cópia e escolha de retomada acessíveis nas cinco larguras", async ({
+test("recupera o resultado e copia a mensagem após falha do Web Share", async ({
   page,
   isMobile,
 }) => {
@@ -137,7 +137,9 @@ test("fallback de cópia e escolha de retomada acessíveis nas cinco larguras", 
       localStorage.setItem(key, JSON.stringify(data));
       Object.defineProperty(navigator, "share", {
         configurable: true,
-        value: undefined,
+        value: async () => {
+          throw new DOMException("Sem acesso", "NotAllowedError");
+        },
       });
       Object.defineProperty(navigator, "clipboard", {
         configurable: true,
@@ -192,4 +194,58 @@ test("dados inválidos e falha de exclusão não são descartados silenciosament
   expect(
     await page.evaluate((key) => localStorage.getItem(key), SESSION_KEY),
   ).toBe("{");
+});
+
+test("mantém o foco e oferece cópia manual após falhas das duas APIs", async ({
+  page,
+}) => {
+  const nickname = "W".repeat(24);
+  const saved = journeyFixture(15, true);
+  const journey = { ...saved, session: { ...saved.session, nickname } };
+  await page.setViewportSize({ width: 320, height: 600 });
+  await page.addInitScript(
+    ({ key, data }) => {
+      localStorage.setItem(key, JSON.stringify(data));
+      Object.defineProperty(navigator, "share", {
+        value: () =>
+          new Promise<void>((_, reject) => {
+            window.addEventListener("share-failed", () => reject(new Error()));
+          }),
+      });
+      Object.defineProperty(navigator, "clipboard", {
+        value: { writeText: () => Promise.reject(new Error()) },
+      });
+    },
+    { key: SESSION_KEY, data: journey },
+  );
+  await page.goto("./");
+  await page.getByRole("button", { name: "CONTINUAR MINHA JORNADA" }).click();
+  await expect(page.getByText(nickname, { exact: true })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    320,
+  );
+
+  const share = page.getByRole("button", { name: "COMPARTILHAR RESULTADO" });
+  await share.press("Enter");
+  await expect(share).toBeDisabled();
+  await expect(share).toBeFocused();
+  await page.evaluate(() => window.dispatchEvent(new Event("share-failed")));
+  await expect(share).toBeEnabled();
+  await expect(share).toBeFocused();
+  await expect(page.getByText(/Selecione e copie/)).toBeVisible();
+
+  const manual = page.getByRole("textbox", { name: "Mensagem pública" });
+  await expect(manual).toHaveValue(/THE BUILDER.*github\.io\/dna-ia\//);
+  expect(await manual.inputValue()).not.toContain(nickname);
+  await page.keyboard.press("Tab");
+  await expect(
+    page.getByRole("button", { name: "REFAZER QUIZ" }),
+  ).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(manual).toBeFocused();
+  expect(
+    await manual.evaluate(
+      (field) => (field as HTMLTextAreaElement).selectionEnd,
+    ),
+  ).toBe((await manual.inputValue()).length);
 });

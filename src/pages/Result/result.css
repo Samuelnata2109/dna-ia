@@ -81,6 +81,7 @@
 .result-congratulations {
   font-size: 1.12rem;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 .result-description {
   color: var(--ia-line);
@@ -137,6 +138,9 @@
   margin-top: 2.5rem;
   border-block: 1px solid var(--ia-blue-900);
   padding-block: 1rem;
+}
+.result-actions button[aria-disabled="true"] {
+  cursor: wait;
 }
 .result-actions p,
 .result-disclaimer {
