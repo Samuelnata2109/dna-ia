@@ -1,8 +1,8 @@
-# Auditoria da candidata 1.0.0
+# Auditoria da versão 1.0.0
 
 ## Escopo
 
-A candidata é preparada a partir de `08a5696620d8f575198eae5b28f9ca496e14dcba`, commit do PR #7. O [workflow de publicação da Etapa 07](https://github.com/Samuelnata2109/dna-ia/actions/runs/45465809427) concluiu com sucesso. O endereço público respondeu com HTTP 200 e `Cache-Control: max-age=600` em 24/11/2026. As verificações da candidata usam um build local em `/dna-ia/`.
+A auditoria pré-lançamento usou a Etapa 07 como referência e a prévia local do build da candidata em `/dna-ia/`. O workflow da Etapa 07 concluiu com sucesso, e o endereço público respondeu com HTTP 200 e `Cache-Control: max-age=600` em 24/11/2026. A versão 1.0.0 foi verificada separadamente após o deploy. [Workflow da Etapa 07](https://github.com/Samuelnata2109/dna-ia/actions/runs/45465809427)
 
 ## Revisão de conteúdo e privacidade
 
@@ -45,7 +45,9 @@ O Lighthouse 13.6 também mediu a entrada do build final em Chromium 159 no Wind
 | Durante restauração de dependências |     64/100 |        100/100 | 854 ms | 0,0240 |                3.999 ms |
 | Após a restauração                  |     68/100 |        100/100 | 880 ms | 0,0240 |                2.846 ms |
 
-O tempo de bloqueio elevado permaneceu na repetição. Na primeira medição, as duas tarefas mais longas ficaram sem atribuição a um recurso específico na captura. A medição não isola a origem do bloqueio nem representa o desempenho de campo. É uma pendência de investigação em dispositivo móvel físico. A nota de acessibilidade cobre as verificações automáticas da tela inicial.
+O tempo de bloqueio elevado permaneceu na repetição, com **68/100** de desempenho e **2,85 s** de TBT. Na primeira medição, as duas tarefas mais longas ficaram sem atribuição a um recurso específico na captura. A medição é de laboratório e a origem do bloqueio continua indeterminada. A nota de acessibilidade cobre as verificações automáticas da tela inicial.
+
+O responsável pelo projeto dispensou a investigação móvel complementar para o lançamento de 24/11/2026. A investigação de desempenho em campo, os testes em aparelhos físicos e a avaliação com leitores de tela dedicados ficam como melhorias futuras. A decisão preserva os resultados medidos e autoriza a publicação da 1.0.0.
 
 Os testes locais identificaram um atraso na revelação com o Windows sob carga. Agora os três estágios são agendados no início da sequência, em 750, 1.500 e 2.250 ms, com cancelamento ao pular ou desmontar. Há uma regressão com relógio simulado que avança diretamente até a revelação e verifica o foco final.
 
@@ -56,3 +58,10 @@ O Windows bloqueou a remoção do binário do Rolldown em uso pelo Vite na pasta
 As primeiras execuções locais registraram limites de tempo na inicialização de workers do Vitest e durante jornadas no Playwright sob carga. A entrada nos testes de integração do quiz passou a aguardar a importação assíncrona dentro do `act` do React. Os testes mantêm as asserções de primeira pergunta, foco, respostas e progresso. O workflow do PR executa as suítes completas em Linux.
 
 Na primeira execução de Playwright em Windows, 28 de 38 casos passaram. As falhas incluíram tempos limite e a colisão de regiões de status na demonstração. A região de sessão agora pertence à jornada. A validação completa do código no [CI do PR #8](https://github.com/Samuelnata2109/dna-ia/actions/runs/45512292757), no commit `d4ab268`, aprovou 64 testes de Vitest em 14 arquivos e 38 de Playwright em Chromium desktop e Pixel 7 emulado. Também passaram `npm ci`, lint, Prettier, typecheck e build.
+
+## Validação em produção — 24/11/2026
+
+- O commit integrado `84b9bfd921c4cc74a14e2901281391ed68a3a47f` contém a versão `1.0.0` e foi publicado às 21h02min32s (Fortaleza). Os jobs de validação e deploy aprovaram 64 testes de Vitest, incluindo pesos e desempates, e 38 de Playwright, além do build. O HTML público retornou HTTP 200 e referenciou o JavaScript `index-H_BJ4EZ7.js` e o CSS `index-DF8CRTSC.css` gerados pelo workflow. [Workflow de publicação](https://github.com/Samuelnata2109/dna-ia/actions/runs/45514610630) · [Site publicado](https://samuelnata2109.github.io/dna-ia/)
+- Os 38 testes de navegador sobre a URL pública foram aprovados em Chromium 159, com desktop e Pixel 7 emulado. A execução durou oito minutos, sem casos pulados, falhas ou retries. Foram exercitados o nickname obrigatório, as 15 perguntas, níveis e XP, a preservação da ordem embaralhada, os seis resultados, a revelação automática e o pulo, movimento reduzido, retomada após recarga ou reabertura da aba, reinício e cancelamento. A recarga em `/dna-ia/`, o Design System e as larguras de 320, 375, 412, 1280 e 1440 px também passaram.
+- Web Share e as respostas de falha das APIs foram simulados nos cenários controlados. Em duas verificações adicionais, a Clipboard API do Chromium foi exercitada com permissões de teste. Uma falha simulada do Web Share acionou cópia real, somente com os dados públicos, e um cancelamento simulado preservou a área de transferência. Os fluxos de quiz, resultados e compartilhamento monitorados não registraram erros de console. O monitoramento adicional de compartilhamento também não registrou falhas de rede ou requisições para serviços de terceiros.
+- Os 21 WebP públicos corresponderam ao manifesto SHA-256 e os quatro WOFF2 foram baixados com sucesso. Os SHA-256 do Prompt Mestre e do PDF da paleta coincidiram com os valores registrados antes do lançamento. Os testes mobile foram executados por emulação. A investigação de desempenho móvel, os ensaios em aparelhos físicos e a avaliação com leitores de tela dedicados seguem no histórico de melhorias futuras.
